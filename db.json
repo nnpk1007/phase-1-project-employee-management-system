@@ -1,0 +1,29 @@
+{
+    "employees": [
+        {
+            "id": 1,
+            "name": "Ngoc Nguyen",
+            "skill": ["titan", "vareo", "finalize", "inkjet"]
+        },
+        {
+            "id": 2,
+            "name": "John Smith",
+            "skill": ["titan", "vareo", "finalize"]
+        },
+        {
+            "id": 3,
+            "name": "Jane Doe",
+            "skill": ["titan", "vareo"]
+        },
+        {
+            "id": 1,
+            "name": "Azusa Strickland",
+            "skill": ["titan"]
+        },
+        {
+            "id": 1,
+            "name": "Elise Hunter ",
+            "skill": []
+        }
+    ]
+}
