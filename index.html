@@ -1,227 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Management System</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <header>
-        <h1>Employee Management System</h1>
-        <h2>FTW7</h2>
+      <h1>Working Management System</h1>
+      <h2>FTW7</h2>
     </header>
     <main>
-        <section class="employees">
-            <h2>Employees</h2>
-            <ul id="employee-list">
-                <!-- Employee list will be generated using JS-->
-            </ul>
-            <!-- form to add new employee-->
-            <form id="add-employee-form">
-                <h3>Add Employee</h3>
-                <div>
-                    <label for="employee-name">Name:</label>
-                    <input type="text" id="employee-name" required />
-                </div>
-                <div>
-                    <label for="employee-login">Employee Login</label>
-                    <input type="text" id="employee-login" required />
-                </div>
-                <div>
-                    <label for="employee-skill">Skill:</label>
-                    <select id="employee-skill">
-                        <option value="">Select a skill...</option>
-                        <option value="titan">Titan</option>
-                        <option value="vareo">Vareo</option>
-                        <option value="finalize">Finalize</option>
-                        <option value="inkjet">Inkjet</option>
-                    </select>
-                </div>
-                <button type="submit" id="add-employee-button">Add</button>
-            </form>
-            <!-- form to update employee skill-->
-            <form id="update-employee-form">
-                <h3>Update Employee Skill</h3>
-                <div>
-                    <label for="employee-login>">Employee Login</label>
-                    <input type="text" id="employee-id" required />
-                </div>
-                <div>
-                    <label for="employee-skill-update">Skill:</label>
-                    <select id="employee-skill-update">
-                        <option value="">Select a skill...</option>
-                        <option value="titan">Titan</option>
-                        <option value="vareo">Vareo</option>
-                        <option value="finalize">Finalize</option>
-                        <option value="inkjet">Inkjet</option>
-                    </select>
-                </div>
-                <button type="submit" id="update-skill-button">Update</button>
-            </form>
-        </section>
+      <section class="employees">
+        <h2>Employees</h2>
+        <table id="employee-table">
+          <!-- Employee table will be generated using JS-->
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Login</th>
+              <th>Skill</th>
+            </tr>
+          </thead>
+        </table>
+      </section>
 
-        <section class="work-station">
-            <h3>Add Employee To Work Station</h3>
-            <div>
-                <label for="station-name">Station</label>
-                <select id="station-name" required >
-                    <option value="">Select a station...</option>
-                    <option value="titan-1">Titan 1</option>
-                    <option value="titan-2">Titan 2</option>
-                    <option value="titan-3">Titan 3</option>
-                    <option value="titan-4">Titan 4</option>
-                    <option value="titan-5">Titan 5</option>
-                    <option value="vareo-1">Vareo 1</option>
-                    <option value="vareo-2">Vareo 2</option>
-                    <option value="vareo-3">Vareo 3</option>
-                    <option value="vareo-4">Vareo 4</option>
-                    <option value="vareo-5">Vareo 5</option>
-                    <option value="trimmer-1">Trimmer 1</option>
-                    <option value="trimmer-2">Trimmer 2</option>
-                    <option value="trimmer-3">Trimmer 3</option>
-                    <option value="trimmer-4">Trimmer 4</option>
-                    <option value="trimmer-5">Trimmer 5</option>
-                    <option value="inkjet-1">Inkjet 1</option>
-                    <option value="inkjet-2">Inkjet 2</option>
-                    <option value="inkjet-3">Inkjet 3</option>
-                    <option value="inkjet-4">Inkjet 4</option>
-                    <option value="inkjet-5">Inkjet 5</option>
-                </select>
-            </div>
-            <div>
-                <label for="employee-login">Employee Login: </label>
-                <input type="text" id="employee-login" required />
-            </div>
-            <button type="submit" id="add-work-button">Add to station</button>
-            <div>
-                <h3>Wordk Station</h3>
-                <ul>
-                    <li>
-                        Titan 1
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Titan 2
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Titan 3
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Titan 4
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Titan 5
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Vareo 1
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Vareo 2
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Vareo 3
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Vareo 4
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Vareo 5
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Trimmer 1
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Trimmer 2
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Trimmer 3
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Trimmer 4
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Trimmer 5
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Inkjet 1
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Inkjet 2
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Inkjet 3
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Inkjet 4
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                    <li>
-                        Inkjet 5
-                        <ul class="employee-at-station">
-                            <!-- Employees at this station will be generated using JS -->
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </section>
+      <section class="employee-update">
+        <!-- form to add new employee-->
+        <form id="add-employee-form">
+          <h3>Add Employee</h3>
+          <div>
+            <label for="employee-name">Name:</label>
+            <input type="text" id="employee-name" required />
+          </div>
+          <div>
+            <label for="employee-login">Employee Login</label>
+            <input type="text" id="employee-login" required />
+          </div>
+          <div>
+            <label for="employee-skill">Skill:</label>
+            <select id="employee-skill">
+              <option value="">Select a skill...</option>
+              <option value="titan">Titan</option>
+              <option value="vareo">Vareo</option>
+              <option value="finalize">Finalize</option>
+              <option value="inkjet">Inkjet</option>
+            </select>
+          </div>
+          <button type="submit" id="add-employee-button">Add</button>
+        </form>
+        <!-- form to update employee skill-->
+        <form id="update-employee-form">
+          <h3>Update Employee Skill</h3>
+          <div>
+            <label for="employee-login>">Employee Login</label>
+            <input type="text" id="employee-id" required />
+          </div>
+          <div>
+            <label for="employee-skill-update">Skill:</label>
+            <select id="employee-skill-update">
+              <option value="">Select a skill...</option>
+              <option value="titan">Titan</option>
+              <option value="vareo">Vareo</option>
+              <option value="finalize">Finalize</option>
+              <option value="inkjet">Inkjet</option>
+            </select>
+          </div>
+          <button type="submit" id="update-skill-button">Update</button>
+        </form>
+      </section>
+
+      <section class="work-station">
+        <h3>Add Employee To Work Station</h3>
+        <div>
+          <label for="station-name">Station</label>
+          <select id="station-name" required>
+            <option value="">Select a station...</option>
+            <option value="titan-1">Titan 1</option>
+            <option value="titan-2">Titan 2</option>
+            <option value="titan-3">Titan 3</option>
+            <option value="titan-4">Titan 4</option>
+            <option value="titan-5">Titan 5</option>
+            <option value="vareo-1">Vareo 1</option>
+            <option value="vareo-2">Vareo 2</option>
+            <option value="vareo-3">Vareo 3</option>
+            <option value="vareo-4">Vareo 4</option>
+            <option value="vareo-5">Vareo 5</option>
+            <option value="trimmer-1">Trimmer 1</option>
+            <option value="trimmer-2">Trimmer 2</option>
+            <option value="trimmer-3">Trimmer 3</option>
+            <option value="trimmer-4">Trimmer 4</option>
+            <option value="trimmer-5">Trimmer 5</option>
+            <option value="inkjet-1">Inkjet 1</option>
+            <option value="inkjet-2">Inkjet 2</option>
+            <option value="inkjet-3">Inkjet 3</option>
+            <option value="inkjet-4">Inkjet 4</option>
+            <option value="inkjet-5">Inkjet 5</option>
+          </select>
+        </div>
+        <div>
+          <label for="employee-login">Employee Login: </label>
+          <input type="text" id="employee-login" required />
+        </div>
+        <button type="submit" id="add-work-button">Add to station</button>
+        <div>
+          <h3>Wordk Station</h3>
+          <ul>
+            <li>
+              Titan 1
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+                <li>Ngoc Nguyen</li>
+              </ul>
+            </li>
+            <li>
+              Titan 2
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Titan 3
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Titan 4
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Titan 5
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Vareo 1
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Vareo 2
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Vareo 3
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Vareo 4
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Vareo 5
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Trimmer 1
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Trimmer 2
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Trimmer 3
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Trimmer 4
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Trimmer 5
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Inkjet 1
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Inkjet 2
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Inkjet 3
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Inkjet 4
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+            <li>
+              Inkjet 5
+              <ul class="employee-at-station">
+                <!-- Employees at this station will be generated using JS -->
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
