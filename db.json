@@ -3,26 +3,31 @@
         {
             "id": 1,
             "name": "Ngoc Nguyen",
+            "login": "nnamzn",
             "skill": ["titan", "vareo", "finalize", "inkjet"]
         },
         {
             "id": 2,
             "name": "John Smith",
+            "login": "jmamzm",
             "skill": ["titan", "vareo", "finalize"]
         },
         {
             "id": 3,
             "name": "Jane Doe",
+            "login": "jdamzn",
             "skill": ["titan", "vareo"]
         },
         {
             "id": 1,
             "name": "Azusa Strickland",
+            "login": "asamzn",
             "skill": ["titan"]
         },
         {
             "id": 1,
             "name": "Elise Hunter ",
+            "login": "ehamzn",
             "skill": []
         }
     ]
