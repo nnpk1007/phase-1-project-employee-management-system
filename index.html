@@ -41,6 +41,25 @@
                 </div>
                 <button type="submit" id="add-employee-button">Add</button>
             </form>
+            <!-- form to update employee skill-->
+            <form id="update-employee-form">
+                <h3>Update Employee Skill</h3>
+                <div>
+                    <label for="employee-login>">Employee Login</label>
+                    <input type="text" id="employee-id" required />
+                </div>
+                <div>
+                    <label for="employee-skill-update">Skill:</label>
+                    <select id="employee-skill-update">
+                        <option value="">Select a skill...</option>
+                        <option value="titan">Titan</option>
+                        <option value="vareo">Vareo</option>
+                        <option value="finalize">Finalize</option>
+                        <option value="inkjet">Inkjet</option>
+                    </select>
+                </div>
+                <button type="submit" id="update-skill-button">Update</button>
+            </form>
         </section>
     </main>
     <script src="main.js"></script>
