@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         employees.forEach((employee) => createEmployeeElement(employee))
       );
   }
-  
+
   function createEmployeeElement(employee) {
     let employeeRow = document.createElement("tr");
     let nameCell = document.createElement("td");
@@ -57,5 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => response.json())
       .then((employee) => createEmployeeElement(employee));
+  }
+
+  function updateEmployeeSkill() {
+    const updateEmployeeForm = document.getElementById("update-employee-form");
+
+    updateEmployeeForm.addEventListener("submit", (event) => {
+        let employeeLogin = document.getElementById("employee-login");
+        let employeeSkillUpdate = document.getElementById("employee-skill-update");
+
+        
+    })
   }
 });
