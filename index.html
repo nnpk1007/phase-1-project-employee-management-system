@@ -18,6 +18,29 @@
             <ul id="employee-list">
                 <!-- Employee list will be generated using JS-->
             </ul>
+            <!-- form to add new employee-->
+            <form id="add-employee-form">
+                <h3>Add Employee</h3>
+                <div>
+                    <label for="employee-name">Name:</label>
+                    <input type="text" id="employee-name" required />
+                </div>
+                <div>
+                    <label for="employee-login">Employee Login</label>
+                    <input type="text" id="employee-login" required />
+                </div>
+                <div>
+                    <label for="employee-skill">Skill:</label>
+                    <select id="employee-skill">
+                        <option value="">Select a skill...</option>
+                        <option value="titan">Titan</option>
+                        <option value="vareo">Vareo</option>
+                        <option value="finalize">Finalize</option>
+                        <option value="inkjet">Inkjet</option>
+                    </select>
+                </div>
+                <button type="submit" id="add-employee-button">Add</button>
+            </form>
         </section>
     </main>
     <script src="main.js"></script>
