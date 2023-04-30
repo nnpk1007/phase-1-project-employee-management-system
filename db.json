@@ -47,13 +47,20 @@
     {
       "name": "Harry Porter",
       "login": "hpamzn",
-      "skill": "vareo",
+      "skill": [
+        "titan",
+        "vareo",
+        "finalize",
+        "inkjet"
+      ],
       "id": 7
     },
     {
       "name": "Trevis Parker",
       "login": "tpamzn",
-      "skill": "finalize",
+      "skill": [
+        "finalize"
+      ],
       "id": 8
     },
     {

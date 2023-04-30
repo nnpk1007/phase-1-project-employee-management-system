@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const employees = document.getElementById("employee-table");
 
+  updateEmployeeSkill();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-
   function fetchEmployees() {
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
@@ -63,10 +63,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateEmployeeForm = document.getElementById("update-employee-form");
 
     updateEmployeeForm.addEventListener("submit", (event) => {
-        let employeeLogin = document.getElementById("employee-login");
-        let employeeSkillUpdate = document.getElementById("employee-skill-update");
+      event.preventDefault();
+      let employeeLogin = document.getElementById("employee-login-update").value;
+      let employeeSkillUpdate = document.getElementById("employee-skill-update").value;
 
-        
-    })
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+        .then((response) => response.json())
+        .then((employees) => {
+            // only one employee match the employee login, so we can access the first employee object return by json
+            const employee = employees[0];
+            const login = employee.login;
+            let skills = employee.skill;
+            console.log(skills)
+
+          if (employeeLogin === login && !skills.includes(employeeSkillUpdate)) {
+            skills.push(employeeSkillUpdate);
+
+            fetch(`http://localhost:3000/employees/${employee.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({ skill: skills }),
+            })
+            .then(response => response.json())
+            .then(updateEmployee => alert(`Updated employee: ${JSON.stringify(updateEmployee)}`))
+            }
+            else {
+                alert("Error: either employee not found or skill already exists")
+            }
+        })
+        .catch((error) => console.log(`Error fetching:`, error))
+    });
+    
   }
 });
