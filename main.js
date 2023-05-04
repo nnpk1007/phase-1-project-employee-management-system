@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
   addWork();
+  showEmployeeAtWorkStation();
   function fetchEmployees() {
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
@@ -48,6 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveEmployee(newEmployee) {
+    //  check if the skill field is a string and convert it to an array before saving it to the database
+    if (typeof newEmployee.skill === "string") {
+      newEmployee.skill = [newEmployee.skill];
+    }
+
     fetch("http://localhost:3000/employees", {
       method: "POST",
       headers: {
@@ -83,12 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: JSON.stringify(updateData),
     })
-    .then(response => response.json())
-    .then(updatedEmployee => {
-      alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
-      updateEmployeeRow(updatedEmployee);
-    })
-    .catch(error => console.log(`Error fetching:`, error));
+      .then((response) => response.json())
+      .then((updatedEmployee) => {
+        alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
+        updateEmployeeRow(updatedEmployee);
+      })
+      .catch((error) => console.log(`Error fetching:`, error));
   }
 
   function updateEmployeeSkill() {
@@ -108,24 +114,19 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((employees) => {
           // only one employee match the employee login, so we can access the first employee object return by json
           let employee = employees[0];
-          let login = employee.login;
           let skills = employee.skill;
           console.log(skills);
 
-          if (
-            employeeLogin === login &&
-            !skills.includes(employeeSkillUpdate)
-          ) {
+          if (!skills.includes(employeeSkillUpdate)) {
             skills.push(employeeSkillUpdate);
 
-            updateEmployee(employee.id, {skill: skills})
-            
-            updateEmployeeForm.reset();
+            updateEmployee(employee.id, { skill: skills });
           } else {
             alert("Employee not found");
           }
         })
-        .catch((error) => console.log(`Error fetching:`, error));
+        .catch((error) => alert("Invalid Employee Login"));
+      updateEmployeeForm.reset();
     });
   }
 
@@ -134,25 +135,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addWorkForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      let employeeLogin = document.getElementById("employee-login-add-work").value;
-      let employeeStation= document.getElementById("station").value;
-      console.log(employeeLogin, employeeStation);
+      let employeeLogin = document.getElementById(
+        "employee-login-add-work"
+      ).value;
+      let station = document.getElementById("station").value;
+      let stationName = station.split("-")[0];
+      console.log(employeeLogin, station);
       fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           let employee = employees[0];
-          let login = employee.login;
+          let skills = employee.skill;
+          console.log(skills);
           let workStation = employee.station;
-          
-          if (employeeLogin === login && !workStation){
-            workStation = employeeStation;
-            updateEmployee(employee.id, {station: workStation})
-          }
-          else {
-            alert(`Invalid employee or employee is already at ${workStation}`)
+
+          if (!skills.includes(stationName)) {
+            alert(
+              `This employee does not have skill to work at ${stationName}`
+            );
+          } else if (workStation) {
+            alert(`This employee is already at ${workStation}`);
+          } else {
+            workStation = station;
+            updateEmployee(employee.id, { station: workStation });
           }
         })
-        .catch(error => console.log(`Error fetching:`, error));
-    })
+        .catch((error) => alert("Invalid Employee Login"));
+    });
   }
+
+  function showEmployeeAtWorkStation() {}
 });

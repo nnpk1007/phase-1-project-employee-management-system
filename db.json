@@ -31,7 +31,7 @@
         "titan",
         "vareo"
       ],
-      "station": ""
+      "station": "inkjet-1"
     },
     {
       "id": 4,
@@ -41,7 +41,7 @@
         "titan",
         "vareo"
       ],
-      "station": ""
+      "station": "inkjet-1"
     },
     {
       "id": 5,
@@ -52,6 +52,18 @@
         "titan"
       ],
       "station": ""
+    },
+    {
+      "name": "Quyen Pham",
+      "login": "qpamzn",
+      "skill": [
+        "titan",
+        "vareo",
+        "finalize",
+        "inkjet"
+      ],
+      "id": 6,
+      "station": "inkjet-1"
     }
   ]
 }
