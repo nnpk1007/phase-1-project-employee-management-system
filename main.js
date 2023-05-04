@@ -2,16 +2,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const employees = document.getElementById("employee-table");
 
   updateEmployeeSkill();
+  addWork();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-  addWork();
-  showEmployeeAtWorkStation();
+
   function fetchEmployees() {
+    
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
-        employees.forEach((employee) => createEmployeeElement(employee))
-      );
+        employees.forEach((employee) => {
+          createEmployeeElement(employee) 
+          
+        })
+    );
+    
+  }
+
+  function fetchStations() {
+    let stations = []
+    fetch("http://localhost:3000/employees")
+      .then((response) => response.json())
+      .then((employees) =>
+        employees.forEach((employee) => {
+           stations.push(employee.station)
+          
+        })
+    );
+    return stations;
   }
 
   function createEmployeeElement(employee) {
@@ -19,12 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let nameCell = document.createElement("td");
     let loginCell = document.createElement("td");
     let skillCell = document.createElement("td");
-
+    let stationCell = document.createElement("td");
+    
     nameCell.textContent = employee.name;
     loginCell.textContent = employee.login;
     skillCell.textContent = employee.skill;
-
-    employeeRow.append(nameCell, loginCell, skillCell);
+    stationCell.textContent = employee.station;
+    employeeRow.append(nameCell, loginCell, skillCell, stationCell);
     employees.appendChild(employeeRow);
   }
 
@@ -75,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (loginCell && loginCell.textContent === updateEmployee.login) {
         rows[i].querySelectorAll("td")[2].textContent = updateEmployee.skill;
+        rows[i].querySelectorAll("td")[3].textContent = updateEmployee.station;
         break;
       }
     }
@@ -91,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => response.json())
       .then((updatedEmployee) => {
-        alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
+        //alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
         updateEmployeeRow(updatedEmployee);
       })
       .catch((error) => console.log(`Error fetching:`, error));
@@ -132,7 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
-
+    let assignedStation = fetchStations();
+    console.log(assignedStation);
     addWorkForm.addEventListener("submit", (event) => {
       event.preventDefault();
       let employeeLogin = document.getElementById(
@@ -140,29 +161,33 @@ document.addEventListener("DOMContentLoaded", () => {
       ).value;
       let station = document.getElementById("station").value;
       let stationName = station.split("-")[0];
-      console.log(employeeLogin, station);
+      //console.log(employeeLogin, station);
       fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           let employee = employees[0];
+          let name = employee.name;
           let skills = employee.skill;
-          console.log(skills);
+          //console.log(skills);
           let workStation = employee.station;
 
           if (!skills.includes(stationName)) {
             alert(
               `This employee does not have skill to work at ${stationName}`
             );
+          }
+          else if (assignedStation.includes(station)) {
+            alert(`${station} has been already assigned to another employee`)
           } else if (workStation) {
             alert(`This employee is already at ${workStation}`);
           } else {
             workStation = station;
             updateEmployee(employee.id, { station: workStation });
+            
           }
         })
         .catch((error) => alert("Invalid Employee Login"));
     });
   }
-
-  function showEmployeeAtWorkStation() {}
+   
 });
