@@ -7,28 +7,24 @@ document.addEventListener("DOMContentLoaded", () => {
   addEmployee(); // add new employee and save to db.json
 
   function fetchEmployees() {
-    
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
         employees.forEach((employee) => {
-          createEmployeeElement(employee) 
-          
+          createEmployeeElement(employee);
         })
-    );
-    
+      );
   }
 
   function fetchStations() {
-    let stations = []
+    let stations = [];
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
         employees.forEach((employee) => {
-           stations.push(employee.station)
-          
+          stations.push(employee.station);
         })
-    );
+      );
     return stations;
   }
 
@@ -38,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let loginCell = document.createElement("td");
     let skillCell = document.createElement("td");
     let stationCell = document.createElement("td");
-    
+
     nameCell.textContent = employee.name;
     loginCell.textContent = employee.login;
     skillCell.textContent = employee.skill;
@@ -161,33 +157,29 @@ document.addEventListener("DOMContentLoaded", () => {
       ).value;
       let station = document.getElementById("station").value;
       let stationName = station.split("-")[0];
-      //console.log(employeeLogin, station);
+
       fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           let employee = employees[0];
           let name = employee.name;
           let skills = employee.skill;
-          //console.log(skills);
           let workStation = employee.station;
 
           if (!skills.includes(stationName)) {
             alert(
               `This employee does not have skill to work at ${stationName}`
             );
-          }
-          else if (assignedStation.includes(station)) {
-            alert(`${station} has been already assigned to another employee`)
+          } else if (assignedStation.includes(station)) {
+            alert(`${station} has been already assigned to another employee`);
           } else if (workStation) {
             alert(`This employee is already at ${workStation}`);
           } else {
             workStation = station;
             updateEmployee(employee.id, { station: workStation });
-            
           }
         })
         .catch((error) => alert("Invalid Employee Login"));
     });
   }
-   
 });
