@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  
+
   function updateEmployee(employeeId, updateData) {
     fetch(`http://localhost:3000/employees/${employeeId}`, {
       method: "PATCH",
@@ -129,5 +129,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
+  function addWork() {
+    const addWorkForm = document.getElementById("add-work-form");
+
+    addWorkForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let employeeLogin = document.getElementById("employee-login-add-work").value;
+      let employeeStation= document.getElementById("station").value;
+      console.log(employeeLogin, employeeStation);
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+        .then((response) => response.json())
+        .then((employees) => {
+          let employee = employees[0];
+          let login = employee.login;
+          let workStation = employee.station;
+          
+          if (employeeLogin === login && !workStation){
+            workStation = employeeStation;
+            updateEmployee(employee.id, {station: workStation})
+          }
+          else {
+            alert(`Invalid employee or employee is already at ${workStation}`)
+          }
+        })
+        .catch(error => console.log(`Error fetching:`, error));
+    })
+  }
 });
