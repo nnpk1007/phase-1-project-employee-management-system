@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateEmployeeSkill();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-
+  addWork();
   function fetchEmployees() {
     fetch("http://localhost:3000/employees")
       .then((response) => response.json())
@@ -60,6 +60,23 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((employee) => createEmployeeElement(employee));
   }
 
+  function updateEmployee(employeeId, updateData) {
+    fetch(`http://localhost:3000/employees/${employeeId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(updateData),
+    })
+    .then(response => response.json())
+    .then(updatedEmployee => {
+      alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
+      updateEmployeeRow(updatedEmployee);
+    })
+    .catch(error => console.log(`Error fetching:`, error));
+  }
+
   function updateEmployeeSkill() {
     const updateEmployeeForm = document.getElementById("update-employee-form");
 
@@ -76,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => response.json())
         .then((employees) => {
           // only one employee match the employee login, so we can access the first employee object return by json
-          const employee = employees[0];
-          const login = employee.login;
+          let employee = employees[0];
+          let login = employee.login;
           let skills = employee.skill;
           console.log(skills);
 
@@ -87,20 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
           ) {
             skills.push(employeeSkillUpdate);
 
-            fetch(`http://localhost:3000/employees/${employee.id}`, {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              body: JSON.stringify({ skill: skills }),
-            })
-              .then((response) => response.json())
-              .then((updatedEmployee) => {
-                alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
-                updateEmployeeRow(updatedEmployee);
-                updateEmployeeForm.reset();
-              });
+            updateEmployee(employee.id, {skill: skills})
+            
+            updateEmployeeForm.reset();
           } else {
             alert("Employee not found");
           }

@@ -9,7 +9,8 @@
         "vareo",
         "finalize",
         "inkjet"
-      ]
+      ],
+      "station": ""
     },
     {
       "id": 2,
@@ -19,7 +20,8 @@
         "titan",
         "vareo",
         "finalize"
-      ]
+      ],
+      "station": ""
     },
     {
       "id": 3,
@@ -28,15 +30,18 @@
       "skill": [
         "titan",
         "vareo"
-      ]
+      ],
+      "station": ""
     },
     {
       "id": 4,
       "name": "Azusa Strickland",
       "login": "asamzn",
       "skill": [
-        "titan"
-      ]
+        "titan",
+        "vareo"
+      ],
+      "station": ""
     },
     {
       "id": 5,
@@ -45,33 +50,8 @@
       "skill": [
         "vareo",
         "titan"
-      ]
-    },
-    {
-      "name": "Harry Porter",
-      "login": "hpamzn",
-      "skill": [
-        "titan",
-        "vareo",
-        "finalize",
-        "inkjet"
       ],
-      "id": 7
-    },
-    {
-      "name": "Trevis Parker",
-      "login": "tpamzn",
-      "skill": [
-        "finalize",
-        "vareo"
-      ],
-      "id": 8
-    },
-    {
-      "name": "Roland Fernando",
-      "login": "rfamzn",
-      "skill": "inkjet",
-      "id": 9
+      "station": ""
     }
   ]
 }
