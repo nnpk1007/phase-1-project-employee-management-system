@@ -60,6 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((employee) => createEmployeeElement(employee));
   }
 
+  function updateEmployeeRow(updateEmployee) {
+    const employees = document.getElementById("employee-table");
+    let rows = employees.getElementsByTagName("tr");
+
+    for (let i = 0; i < rows.length; i++) {
+      let loginCell = rows[i].querySelectorAll("td")[1];
+
+      if (loginCell && loginCell.textContent === updateEmployee.login) {
+        rows[i].querySelectorAll("td")[2].textContent = updateEmployee.skill;
+        break;
+      }
+    }
+  }
+  
   function updateEmployee(employeeId, updateData) {
     fetch(`http://localhost:3000/employees/${employeeId}`, {
       method: "PATCH",
@@ -115,17 +129,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function updateEmployeeRow(updateEmployee) {
-    const employees = document.getElementById("employee-table");
-    let rows = employees.getElementsByTagName("tr");
-
-    for (let i = 0; i < rows.length; i++) {
-      let loginCell = rows[i].querySelectorAll("td")[1];
-
-      if (loginCell && loginCell.textContent === updateEmployee.login) {
-        rows[i].querySelectorAll("td")[2].textContent = updateEmployee.skill;
-        break;
-      }
-    }
-  }
+  
 });
