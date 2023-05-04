@@ -42,7 +42,10 @@
       "id": 5,
       "name": "Elise Hunter ",
       "login": "ehamzn",
-      "skill": []
+      "skill": [
+        "vareo",
+        "titan"
+      ]
     },
     {
       "name": "Harry Porter",
@@ -59,7 +62,8 @@
       "name": "Trevis Parker",
       "login": "tpamzn",
       "skill": [
-        "finalize"
+        "finalize",
+        "vareo"
       ],
       "id": 8
     },
