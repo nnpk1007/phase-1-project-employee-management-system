@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   addWork();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
+  // show employee at station when the page first load
+  displayEmployeeAtStation();
 
   function fetchEmployees() {
     fetch("http://localhost:3000/employees")
@@ -16,32 +18,35 @@ document.addEventListener("DOMContentLoaded", () => {
       );
   }
 
-  function fetchStations() {
-    let stations = [];
-    fetch("http://localhost:3000/employees")
-      .then((response) => response.json())
-      .then((employees) =>
-        employees.forEach((employee) => {
-          stations.push(employee.station);
-        })
-      );
-    return stations;
-  }
-
   function createEmployeeElement(employee) {
     let employeeRow = document.createElement("tr");
     let nameCell = document.createElement("td");
     let loginCell = document.createElement("td");
     let skillCell = document.createElement("td");
     let stationCell = document.createElement("td");
+    //let stationUl = document.createElement("ul");
 
     nameCell.textContent = employee.name;
     loginCell.textContent = employee.login;
     skillCell.textContent = employee.skill;
+
+    // if (employee.station) {
+    //   let stationLi = document.createElement("li");
+    //   stationLi.style.color = "green";
+    //   stationLi.textContent = employee.station;
+
+    //   //createDeleteButton(stationLi);
+
+    //   //stationUl.appendChild(stationLi);
+    //   stationCell.appendChild(stationLi);
+    // }
+
     stationCell.textContent = employee.station;
     employeeRow.append(nameCell, loginCell, skillCell, stationCell);
     employees.appendChild(employeeRow);
   }
+
+  
 
   function addEmployee() {
     const addEmployeeForm = document.getElementById("add-employee-form");
@@ -97,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateEmployee(employeeId, updateData) {
-    fetch(`http://localhost:3000/employees/${employeeId}`, {
+    return fetch(`http://localhost:3000/employees/${employeeId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -146,9 +151,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getStationArray() {
+    let stations = [];
+    return fetch("http://localhost:3000/employees")
+            .then((response) => response.json())
+            .then((employees) => {
+              employees.forEach((employee) => {
+                if (employee.station) {
+                  stations.push(employee.station);
+                }
+              })
+            return stations;
+            });
+  }
+  
+
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
-    let assignedStation = fetchStations();
+    let assignedStation = getStationArray();
     console.log(assignedStation);
     addWorkForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -161,8 +181,11 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
+          if (employees.length === 0) {
+            alert("Invalid employee login")
+          }
           let employee = employees[0];
-          let name = employee.name;
+          let login = employee.login;
           let skills = employee.skill;
           let workStation = employee.station;
 
@@ -176,10 +199,51 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(`This employee is already at ${workStation}`);
           } else {
             workStation = station;
-            updateEmployee(employee.id, { station: workStation });
+            updateEmployee(employee.id, { station: workStation })
+            .then(() => {
+              // update the list of employees at each station
+              displayEmployeeAtStation();
+            });
           }
         })
-        .catch((error) => alert("Invalid Employee Login"));
+        .catch((error) => console.log("Error fetching:", error));
+    });
+  }
+
+  function getEmployeesStationsObj() {
+    let employeeAtStation = {};
+    return fetch("http://localhost:3000/employees")
+      .then((response) => response.json())
+      .then((employees) => {
+        employees.forEach((employee) => {
+          if (employee.station) {
+            employeeAtStation[employee.name] = employee.station;
+          }
+        });
+        return employeeAtStation;
+      });
+  }
+
+  function displayEmployeeAtStation() {
+    getEmployeesStationsObj().then((employees) => {
+      // loop through each station in HTML
+      let stations = document.querySelectorAll(".employees-at-position");
+      stations.forEach((station) => {
+        let stationName = station.dataset.position;
+        let employeeAtStation = Object.keys(employees).filter(
+          (key) => employees[key] === stationName
+        );
+        // Clear the previous list of employees at this station
+        station.textContent = "";
+        // Generate the list of employees for this position
+        employeeAtStation.forEach((employee) => {
+          let li = document.createElement("li");
+          li.style.color = "green";
+          li.textContent = employee + " ";
+          createDeleteButton(li);
+          station.appendChild(li);
+          });
+      });
     });
   }
 });

@@ -7,7 +7,7 @@
       "skill": [
         "titan",
         "vareo",
-        "finalize",
+        "trimmer",
         "inkjet"
       ],
       "station": "titan-1"
@@ -19,9 +19,9 @@
       "skill": [
         "titan",
         "vareo",
-        "finalize"
+        "trimmer"
       ],
-      "station": "vareo-1"
+      "station": "titan-2"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
         "titan",
         "vareo"
       ],
-      "station": "vareo-4"
+      "station": "titan-3"
     },
     {
       "id": 4,
@@ -41,7 +41,7 @@
         "titan",
         "vareo"
       ],
-      "station": "vareo-3"
+      "station": "titan-4"
     },
     {
       "id": 5,
@@ -50,9 +50,9 @@
       "skill": [
         "vareo",
         "titan",
-        "finalize"
+        "trimmer"
       ],
-      "station": "titan-1"
+      "station": "titan-5"
     },
     {
       "name": "Quyen Pham",
@@ -60,11 +60,11 @@
       "skill": [
         "titan",
         "vareo",
-        "finalize",
+        "trimmer",
         "inkjet"
       ],
       "id": 6,
-      "station": "titan-2"
+      "station": "vareo-1"
     },
     {
       "name": "Harry Porter",
@@ -73,15 +73,27 @@
         "titan"
       ],
       "id": 7,
-      "station": "titan-5"
+      "station": ""
     },
     {
       "name": "Trevis Parker",
       "login": "tpamzn",
       "skill": [
-        "titan"
+        "titan",
+        "vareo"
       ],
-      "id": 8
+      "id": 8,
+      "station": "vareo-2"
+    },
+    {
+      "name": "Roland Fernando",
+      "login": "rfamzn",
+      "skill": [
+        "titan",
+        "trimmer"
+      ],
+      "id": 9,
+      "station": ""
     }
   ]
 }

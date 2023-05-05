@@ -85,6 +85,9 @@ section.work_station ul ul {
     margin-bottom: 5px;
 }
 
+.green {
+    color: green;
+}
 /* Style form inputs */
 input[type="text"],
 select {
