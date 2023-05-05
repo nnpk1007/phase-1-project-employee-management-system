@@ -224,6 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  
+
   function displayEmployeeAtStation() {
     getEmployeesStationsObj().then((employees) => {
       // loop through each station in HTML
