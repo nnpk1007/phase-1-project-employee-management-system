@@ -224,7 +224,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  
+  function createDeleteButton(elementLi) {
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "x";
+
+    deleteBtn.addEventListener("mouseover", () => {
+      deleteBtn.originalColor = deleteBtn.style.color;
+      deleteBtn.style.color = "red";
+    });
+
+    deleteBtn.addEventListener("mouseout", () => {
+      deleteBtn.style.color = deleteBtn.originalColor;
+    });
+
+    deleteBtn.addEventListener("click", function () {
+      elementLi.remove();
+    });
+
+    elementLi.appendChild(deleteBtn);
+  }
 
   function displayEmployeeAtStation() {
     getEmployeesStationsObj().then((employees) => {
