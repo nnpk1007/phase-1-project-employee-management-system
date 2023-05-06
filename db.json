@@ -10,7 +10,7 @@
         "trimmer",
         "inkjet"
       ],
-      "station": "titan-1"
+      "station": ""
     },
     {
       "id": 2,
@@ -21,7 +21,7 @@
         "vareo",
         "trimmer"
       ],
-      "station": "titan-2"
+      "station": ""
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
         "titan",
         "vareo"
       ],
-      "station": "titan-3"
+      "station": ""
     },
     {
       "id": 4,
@@ -41,7 +41,7 @@
         "titan",
         "vareo"
       ],
-      "station": "titan-4"
+      "station": ""
     },
     {
       "id": 5,
@@ -64,16 +64,17 @@
         "inkjet"
       ],
       "id": 6,
-      "station": "vareo-1"
+      "station": ""
     },
     {
       "name": "Harry Porter",
       "login": "hpamzn",
       "skill": [
-        "titan"
+        "titan",
+        "vareo"
       ],
       "id": 7,
-      "station": ""
+      "station": "vareo-5"
     },
     {
       "name": "Trevis Parker",
@@ -93,7 +94,7 @@
         "trimmer"
       ],
       "id": 9,
-      "station": ""
+      "station": "trimmer-2"
     }
   ]
 }

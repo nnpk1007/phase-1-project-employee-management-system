@@ -46,8 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     employees.appendChild(employeeRow);
   }
 
-  
-
   function addEmployee() {
     const addEmployeeForm = document.getElementById("add-employee-form");
 
@@ -154,59 +152,59 @@ document.addEventListener("DOMContentLoaded", () => {
   function getStationArray() {
     let stations = [];
     return fetch("http://localhost:3000/employees")
-            .then((response) => response.json())
-            .then((employees) => {
-              employees.forEach((employee) => {
-                if (employee.station) {
-                  stations.push(employee.station);
-                }
-              })
-            return stations;
-            });
+      .then((response) => response.json())
+      .then((employees) => {
+        employees.forEach((employee) => {
+          if (employee.station) {
+            stations.push(employee.station);
+          }
+        });
+        return stations;
+      });
   }
-  
 
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
-    let assignedStation = getStationArray();
-    console.log(assignedStation);
-    addWorkForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      let employeeLogin = document.getElementById(
-        "employee-login-add-work"
-      ).value;
-      let station = document.getElementById("station").value;
-      let stationName = station.split("-")[0];
 
-      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
-        .then((response) => response.json())
-        .then((employees) => {
-          if (employees.length === 0) {
-            alert("Invalid employee login")
-          }
-          let employee = employees[0];
-          let login = employee.login;
-          let skills = employee.skill;
-          let workStation = employee.station;
+    getStationArray().then((assignedStation) => {
+      console.log(assignedStation);
+      addWorkForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        let employeeLogin = document.getElementById(
+          "employee-login-add-work"
+        ).value;
+        let station = document.getElementById("station").value;
+        let stationName = station.split("-")[0];
 
-          if (!skills.includes(stationName)) {
-            alert(
-              `This employee does not have skill to work at ${stationName}`
-            );
-          } else if (assignedStation.includes(station)) {
-            alert(`${station} has been already assigned to another employee`);
-          } else if (workStation) {
-            alert(`This employee is already at ${workStation}`);
-          } else {
-            workStation = station;
-            updateEmployee(employee.id, { station: workStation })
-            .then(() => {
-              // update the list of employees at each station
-              displayEmployeeAtStation();
-            });
-          }
-        })
-        .catch((error) => console.log("Error fetching:", error));
+        fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+          .then((response) => response.json())
+          .then((employees) => {
+            if (employees.length === 0) {
+              alert("Invalid employee login");
+            }
+            let employee = employees[0];
+            let login = employee.login;
+            let skills = employee.skill;
+            let workStation = employee.station;
+
+            if (!skills.includes(stationName)) {
+              alert(
+                `This employee does not have skill to work at ${stationName}`
+              );
+            } else if (assignedStation.includes(station)) {
+              alert(`${station} has been already assigned to another employee`);
+            } else if (workStation) {
+              alert(`This employee is already at ${workStation}`);
+            } else {
+              workStation = station;
+              updateEmployee(employee.id, { station: workStation }).then(() => {
+                // update the list of employees at each station
+                displayEmployeeAtStation();
+              });
+            }
+          })
+          .catch((error) => console.log("Error fetching:", error));
+      });
     });
   }
 
@@ -224,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  function createDeleteButton(elementLi) {
+  function createDeleteButton(elementLi, employeeId, updateData) {
     let deleteBtn = document.createElement("button");
     deleteBtn.textContent = "x";
 
@@ -239,6 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     deleteBtn.addEventListener("click", function () {
       elementLi.remove();
+      updateEmployee(employeeId, updateData);
     });
 
     elementLi.appendChild(deleteBtn);
@@ -257,12 +256,19 @@ document.addEventListener("DOMContentLoaded", () => {
         station.textContent = "";
         // Generate the list of employees for this position
         employeeAtStation.forEach((employee) => {
+          fetch(`http://localhost:3000/employees?name=${employee}`)
+            .then((response) => response.json())
+            .then((employees) => {
+              if (employees.length > 0) { // Check if there is at least one employee in the array
+                let employeeId = employees[0].id; // get the employee id from the response
+                createDeleteButton(li, employeeId, { station: "" });
+              }
+            });
           let li = document.createElement("li");
           li.style.color = "green";
           li.textContent = employee + " ";
-          createDeleteButton(li);
           station.appendChild(li);
-          });
+        });
       });
     });
   }
