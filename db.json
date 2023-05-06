@@ -24,24 +24,24 @@
       "station": ""
     },
     {
-      "id": 3,
-      "name": "Jane Doe",
-      "login": "jdamzn",
-      "skill": [
-        "titan",
-        "vareo"
-      ],
-      "station": ""
-    },
-    {
-      "id": 4,
-      "name": "Azusa Strickland",
+      "name": "Azusa Strictland",
       "login": "asamzn",
       "skill": [
         "titan",
+        "trimmer",
+        "vareo",
+        "inkjet"
+      ],
+      "id": 6
+    },
+    {
+      "name": "Harry Porter",
+      "login": "hpamzn",
+      "skill": [
+        "titan",
         "vareo"
       ],
-      "station": ""
+      "id": 7
     }
   ]
 }

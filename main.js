@@ -91,25 +91,41 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "DELETE",
         })
         .then(response => response.json())
-        .then(data => {
-          console.log(data)
+        .then(removedEmployee => {
+          removeEmployeeRow(employeeLogin)
+          console.log(removedEmployee)
         }) 
       })
       .catch(error => console.log(error))
     });
   }
-  
 
-  function updateEmployeeRow(updateEmployee) {
-    const employees = document.getElementById("employee-table");
-    let rows = employees.getElementsByTagName("tr");
+  function removeEmployeeRow(employeeLogin) {
+    let employeeTable = document.getElementById("employee-table");
+    let rows = employeeTable.getElementsByTagName("tr");
 
     for (let i = 0; i < rows.length; i++) {
       let loginCell = rows[i].querySelectorAll("td")[1];
 
-      if (loginCell && loginCell.textContent === updateEmployee.login) {
-        rows[i].querySelectorAll("td")[2].textContent = updateEmployee.skill;
+      if (loginCell && loginCell.textContent === employeeLogin) {
+        rows[i].remove();
         break;
+      }
+    }
+  }
+  
+
+  function updateEmployeeRow(employee) {
+    let employeeTable = document.getElementById("employee-table");
+    let rows = employeeTable.getElementsByTagName("tr");
+
+    for (let i = 0; i < rows.length; i++) {
+      let loginCell = rows[i].querySelectorAll("td")[1];
+
+      if (loginCell && loginCell.textContent === employee.login) {
+          rows[i].querySelectorAll("td")[2].textContent = employee.skill;
+          break;
+
       }
     }
   }
@@ -125,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => response.json())
       .then((updatedEmployee) => {
-        //alert(`Updated employee: ${JSON.stringify(updatedEmployee)}`);
         updateEmployeeRow(updatedEmployee);
       })
       .catch((error) => console.log(`Error fetching:`, error));
