@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addWork();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
+  removeEmployees()
   // show employee at station when the page first load
   displayEmployeeAtStation();
 
@@ -23,26 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let nameCell = document.createElement("td");
     let loginCell = document.createElement("td");
     let skillCell = document.createElement("td");
-    let stationCell = document.createElement("td");
-    //let stationUl = document.createElement("ul");
 
     nameCell.textContent = employee.name;
     loginCell.textContent = employee.login;
     skillCell.textContent = employee.skill;
-
-    // if (employee.station) {
-    //   let stationLi = document.createElement("li");
-    //   stationLi.style.color = "green";
-    //   stationLi.textContent = employee.station;
-
-    //   //createDeleteButton(stationLi);
-
-    //   //stationUl.appendChild(stationLi);
-    //   stationCell.appendChild(stationLi);
-    // }
-
-    stationCell.textContent = employee.station;
-    employeeRow.append(nameCell, loginCell, skillCell, stationCell);
+   
+    employeeRow.append(nameCell, loginCell, skillCell);
     employees.appendChild(employeeRow);
   }
 
@@ -84,6 +71,35 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((employee) => createEmployeeElement(employee));
   }
 
+  function removeEmployees() {
+    const removeEmployeeBtn = document.getElementById("remove-employee-button");
+      
+    removeEmployeeBtn.addEventListener("click", (event) => {
+      let employeeLogin = document.getElementById("employee-login-remove").value;
+      event.preventDefault();
+      
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`)
+      .then(response => response.json())
+      .then(employees => {
+        if (employees.length === 0) {
+          alert("Invalid employee login")
+        }
+        let employeeId = employees[0].id;
+        console.log(employeeId);
+
+        fetch(`http://localhost:3000/employees/${employeeId}`, {
+          method: "DELETE",
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+        }) 
+      })
+      .catch(error => console.log(error))
+    });
+  }
+  
+
   function updateEmployeeRow(updateEmployee) {
     const employees = document.getElementById("employee-table");
     let rows = employees.getElementsByTagName("tr");
@@ -93,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (loginCell && loginCell.textContent === updateEmployee.login) {
         rows[i].querySelectorAll("td")[2].textContent = updateEmployee.skill;
-        rows[i].querySelectorAll("td")[3].textContent = updateEmployee.station;
         break;
       }
     }
@@ -131,6 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
+          if (employees.length === 0) {
+            alert("Invalid employee login");
+          }
           // only one employee match the employee login, so we can access the first employee object return by json
           let employee = employees[0];
           let skills = employee.skill;
@@ -144,16 +162,16 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Employee not found");
           }
         })
-        .catch((error) => alert("Invalid Employee Login"));
+        .catch((error) => console.log("Error fetching:", error));
       updateEmployeeForm.reset();
     });
   }
 
   function getStationArray() {
-    let stations = [];
     return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) => {
+        let stations = [];
         employees.forEach((employee) => {
           if (employee.station) {
             stations.push(employee.station);
@@ -165,11 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
-
-    getStationArray().then((assignedStation) => {
-      console.log(assignedStation);
-      addWorkForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+    
+    addWorkForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      getStationArray().then((assignedStation) => {
+        console.log(assignedStation);
         let employeeLogin = document.getElementById(
           "employee-login-add-work"
         ).value;
@@ -182,8 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (employees.length === 0) {
               alert("Invalid employee login");
             }
+
             let employee = employees[0];
-            let login = employee.login;
+            //let login = employee.login;
             let skills = employee.skill;
             let workStation = employee.station;
 
@@ -204,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
           .catch((error) => console.log("Error fetching:", error));
+        addWorkForm.reset();
       });
     });
   }
@@ -256,18 +276,20 @@ document.addEventListener("DOMContentLoaded", () => {
         station.textContent = "";
         // Generate the list of employees for this position
         employeeAtStation.forEach((employee) => {
-          fetch(`http://localhost:3000/employees?name=${employee}`)
-            .then((response) => response.json())
-            .then((employees) => {
-              if (employees.length > 0) { // Check if there is at least one employee in the array
-                let employeeId = employees[0].id; // get the employee id from the response
-                createDeleteButton(li, employeeId, { station: "" });
-              }
-            });
           let li = document.createElement("li");
           li.style.color = "green";
           li.textContent = employee + " ";
           station.appendChild(li);
+
+          fetch(`http://localhost:3000/employees?name=${employee}`)
+            .then((response) => response.json())
+            .then((employees) => {
+              // Check if there is at least one employee in the array
+              if (employees.length > 0) {
+                let employeeId = employees[0].id; // get the employee id from the response
+                createDeleteButton(li, employeeId, { station: "" });
+              }
+            });
         });
       });
     });

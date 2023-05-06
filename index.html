@@ -21,14 +21,14 @@
               <th>Name</th>
               <th>Login</th>
               <th>Skill</th>
-              <th>Work Station</th>
+              <!-- <th>Work Station</th> -->
             </tr>
           </thead>
           <!-- Employee table will be generated using JS-->
         </table>
       </section>
 
-      <section class="employee-update">
+      <section class="employee-add-remove">
         <!-- form to add new employee-->
         <form id="add-employee-form">
           <h3>Add New Employee</h3>
@@ -52,6 +52,14 @@
           </div>
           <button type="submit" id="add-employee-button">Add</button>
         </form>
+        <h3>Remove Employee</h3>
+        <div>
+          <label for="employee-login">Employee Login</label>
+          <input type="text" id="employee-login-remove" required />
+        </div>
+        <button type="click" id="remove-employee-button">Remove</button>
+      </section>  
+      <section class="employee-update">
         <!-- form to update employee skill-->
         <form id="update-employee-form">
           <h3>Update Employee Skill</h3>
@@ -109,36 +117,7 @@
       <section class="positions">
         <h2>Stations</h2>
         <ul>
-          <li>
-            Inkjet Printer 1
-            <ul class="employees-at-position" data-position="inkjet-1">
-              <!-- Employees at this position will be generated dynamically using JavaScript -->
-            </ul>
-          </li>
-          <li>
-            Inkjet Printer 2
-            <ul class="employees-at-position" data-position="inkjet-2">
-              <!-- Employees at this position will be generated dynamically using JavaScript -->
-            </ul>
-          </li>
-          <li>
-            Inkjet Printer 3
-            <ul class="employees-at-position" data-position="inkjet-3">
-              <!-- Employees at this position will be generated dynamically using JavaScript -->
-            </ul>
-          </li>
-          <li>
-            Inkjet Printer 4
-            <ul class="employees-at-position" data-position="inkjet-4">
-              <!-- Employees at this position will be generated dynamically using JavaScript -->
-            </ul>
-          </li>
-          <li>
-            Inkjet Printer 5
-            <ul class="employees-at-position" data-position="inkjet-5">
-              <!-- Employees at this position will be generated dynamically using JavaScript -->
-            </ul>
-          </li>
+          
           <li>
             Titan 1 
             <ul class="employees-at-position" data-position="titan-1">
@@ -226,6 +205,36 @@
           <li>
             Trimmer 5
             <ul class="employees-at-position" data-position="trimmer-5">
+              <!-- Employees at this position will be generated dynamically using JavaScript -->
+            </ul>
+          </li>
+          <li>
+            Inkjet Printer 1
+            <ul class="employees-at-position" data-position="inkjet-1">
+              <!-- Employees at this position will be generated dynamically using JavaScript -->
+            </ul>
+          </li>
+          <li>
+            Inkjet Printer 2
+            <ul class="employees-at-position" data-position="inkjet-2">
+              <!-- Employees at this position will be generated dynamically using JavaScript -->
+            </ul>
+          </li>
+          <li>
+            Inkjet Printer 3
+            <ul class="employees-at-position" data-position="inkjet-3">
+              <!-- Employees at this position will be generated dynamically using JavaScript -->
+            </ul>
+          </li>
+          <li>
+            Inkjet Printer 4
+            <ul class="employees-at-position" data-position="inkjet-4">
+              <!-- Employees at this position will be generated dynamically using JavaScript -->
+            </ul>
+          </li>
+          <li>
+            Inkjet Printer 5
+            <ul class="employees-at-position" data-position="inkjet-5">
               <!-- Employees at this position will be generated dynamically using JavaScript -->
             </ul>
           </li>

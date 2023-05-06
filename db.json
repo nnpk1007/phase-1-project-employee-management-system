@@ -42,59 +42,6 @@
         "vareo"
       ],
       "station": ""
-    },
-    {
-      "id": 5,
-      "name": "Elise Hunter ",
-      "login": "ehamzn",
-      "skill": [
-        "vareo",
-        "titan",
-        "trimmer"
-      ],
-      "station": "titan-5"
-    },
-    {
-      "name": "Quyen Pham",
-      "login": "qpamzn",
-      "skill": [
-        "titan",
-        "vareo",
-        "trimmer",
-        "inkjet"
-      ],
-      "id": 6,
-      "station": ""
-    },
-    {
-      "name": "Harry Porter",
-      "login": "hpamzn",
-      "skill": [
-        "titan",
-        "vareo"
-      ],
-      "id": 7,
-      "station": "vareo-5"
-    },
-    {
-      "name": "Trevis Parker",
-      "login": "tpamzn",
-      "skill": [
-        "titan",
-        "vareo"
-      ],
-      "id": 8,
-      "station": "vareo-2"
-    },
-    {
-      "name": "Roland Fernando",
-      "login": "rfamzn",
-      "skill": [
-        "titan",
-        "trimmer"
-      ],
-      "id": 9,
-      "station": "trimmer-2"
     }
   ]
 }
