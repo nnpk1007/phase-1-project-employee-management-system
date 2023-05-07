@@ -9,7 +9,7 @@
         "vareo",
         "trimmer"
       ],
-      "station": "vareo-2"
+      "station": ""
     },
     {
       "name": "Azusa Strictland",
@@ -21,7 +21,7 @@
         "inkjet"
       ],
       "id": 2,
-      "station": "titan-2"
+      "station": ""
     },
     {
       "name": "Roland Fernando",
@@ -30,7 +30,7 @@
         "titan"
       ],
       "id": 4,
-      "station": "titan-3"
+      "station": ""
     },
     {
       "name": "Ngoc Nguyen",
@@ -39,7 +39,7 @@
         "titan"
       ],
       "id": 6,
-      "station": "titan-1"
+      "station": ""
     },
     {
       "name": "Trevis Parker",
@@ -48,7 +48,17 @@
         "vareo"
       ],
       "id": 7,
-      "station": "vareo-1"
+      "station": ""
+    },
+    {
+      "name": "Quyen Pham",
+      "login": "qpamzn",
+      "skill": [
+        "titan",
+        "vareo"
+      ],
+      "id": 8,
+      "station": ""
     }
   ]
 }

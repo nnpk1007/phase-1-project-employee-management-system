@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const employees = document.getElementById("employee-table");
 
-  updateEmployeeSkill();
-  addWork();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-  removeEmployees();
-  // show employee at station when the page first load
-  displayEmployeeAtStation();
+  removeEmployees(); // remove employee adn update to db.json
+  updateEmployeeSkill(); // update new skill for employee and save to db.json
+  addWork(); // add employee to a work station and update to db.json
+  displayEmployeeAtStation(); // show employee name at work station
 
   function fetchEmployees() {
     fetch("http://localhost:3000/employees")
@@ -19,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
   }
 
+  // make employee table
   function createEmployeeElement(employee) {
     let employeeRow = document.createElement("tr");
     let nameCell = document.createElement("td");
@@ -44,14 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
       let employeeTable = document.getElementById("employee-table");
       let rows = employeeTable.getElementsByTagName("tr");
 
+      // loop through row of table
       for (let i = 0; i < rows.length; i++) {
         let nameCell = rows[i].querySelectorAll("td")[0];
         let loginCell = rows[i].querySelectorAll("td")[1];
 
+        // check if name exists
         if (nameCell && nameCell.textContent === employeeName.value) {
           alert("Employee name already exist");
           return;
         }
+        // check if login exists
         if (loginCell && loginCell.textContent === employeeLogin.value) {
           alert("Employee login already exists");
           return;
@@ -63,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         login: employeeLogin.value,
         skill: employeeSkill.value,
       };
+
+      // call function saveEmployee
       saveEmployee(newEmployee);
       addEmployeeForm.reset();
     });
@@ -73,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof newEmployee.skill === "string") {
       newEmployee.skill = [newEmployee.skill];
     }
-
+    // use POST method to update new employee to db.json
     fetch("http://localhost:3000/employees", {
       method: "POST",
       headers: {
@@ -83,33 +88,39 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify(newEmployee),
     })
       .then((response) => response.json())
-      .then((employee) => createEmployeeElement(employee));
+      .then((employee) => createEmployeeElement(employee)); // call function createEmployeeElement to create new employee
   }
 
   function removeEmployees() {
     const removeEmployeeBtn = document.getElementById("remove-employee-button");
 
     removeEmployeeBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      // get employee login value
       let employeeLogin = document.getElementById(
         "employee-login-remove"
       ).value;
-      event.preventDefault();
 
-      fetch(`http://localhost:3000/employees?login=${employeeLogin}`)
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
+          // if employee login value is invalid, we can not fetch, the return by json will be empty
           if (employees.length === 0) {
             alert("Invalid employee login");
           }
+
+          // only one employee match the employee login, so we can access the first employee object return by json
           let employeeId = employees[0].id;
           console.log(employeeId);
 
+          // use employee ID to fetch data and DELETE method to delete that employee
           fetch(`http://localhost:3000/employees/${employeeId}`, {
             method: "DELETE",
           })
             .then((response) => response.json())
             .then((removedEmployee) => {
-              removeEmployeeRow(employeeLogin);
+              removeEmployeeRow(employeeLogin); // call removeEmployeeRow to remove employee from table
               console.log(removedEmployee);
             })
             .catch((error) => console.log(error));
@@ -132,41 +143,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function updateEmployeeRow(employee) {
-    let employeeTable = document.getElementById("employee-table");
-    let rows = employeeTable.getElementsByTagName("tr");
-
-    for (let i = 0; i < rows.length; i++) {
-      let loginCell = rows[i].querySelectorAll("td")[1];
-
-      if (loginCell && loginCell.textContent === employee.login) {
-        rows[i].querySelectorAll("td")[2].textContent = employee.skill;
-        break;
-      }
-    }
-  }
-
-  function updateEmployee(employeeId, updateData) {
-    return fetch(`http://localhost:3000/employees/${employeeId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(updateData),
-    })
-      .then((response) => response.json())
-      .then((updatedEmployee) => {
-        updateEmployeeRow(updatedEmployee);
-      })
-      .catch((error) => console.log(`Error fetching:`, error));
-  }
-
   function updateEmployeeSkill() {
     const updateEmployeeForm = document.getElementById("update-employee-form");
 
     updateEmployeeForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      // get the values of employee login and new skill from the form
       let employeeLogin = document.getElementById(
         "employee-login-update"
       ).value;
@@ -186,9 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(skills);
 
           if (!skills.includes(employeeSkillUpdate)) {
+            // if the new skill is not already in the skills list, add it
             skills.push(employeeSkillUpdate);
 
-            updateEmployee(employee.id, { skill: skills });
+            updateEmployee(employee.id, { skill: skills }); // call function updateEmployee
           } else {
             alert("Skill already exist");
           }
@@ -198,6 +181,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function updateEmployee(employeeId, updateData) {
+    // Make a PATCH request using employee Id
+    return fetch(`http://localhost:3000/employees/${employeeId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(updateData),
+    })
+      .then((response) => response.json())
+      .then((updatedEmployee) => {
+        // Pass the updated employee object to the updateEmployeeRow function
+        updateEmployeeRow(updatedEmployee);
+      })
+      .catch((error) => console.log(`Error fetching:`, error));
+  }
+
+  function updateEmployeeRow(employee) {
+    let employeeTable = document.getElementById("employee-table");
+    let rows = employeeTable.getElementsByTagName("tr");
+
+    // Loop through each row of the tabl
+    for (let i = 0; i < rows.length; i++) {
+      // Get the cell containing the login of the employee in row at td[1]
+      let loginCell = rows[i].querySelectorAll("td")[1];
+
+      if (loginCell && loginCell.textContent === employee.login) {
+        // Update the skill cell of the current row with the updated skill
+        rows[i].querySelectorAll("td")[2].textContent = employee.skill;
+        break;
+      }
+    }
+  }
+
+  // This function retrieves all the employees from the database and returns an array of stations where employees are currently assigned to work.
   function getStationArray() {
     return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
@@ -212,17 +231,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  // This function handle adding a new work to an employee.
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
 
     addWorkForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      //  call the getStationArray() function, which retrieves an array of all assigned stations from the server.
       getStationArray().then((assignedStation) => {
         console.log(assignedStation);
         let employeeLogin = document.getElementById(
           "employee-login-add-work"
         ).value;
         let station = document.getElementById("station").value;
+        // station value, for example is titan-1, so we need to split it and get the first index only
         let stationName = station.split("-")[0];
 
         fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
@@ -235,17 +257,23 @@ document.addEventListener("DOMContentLoaded", () => {
             let employee = employees[0];
             let skills = employee.skill;
             let workStation = employee.station;
-
+            // check if station name is not in skills
             if (!skills.includes(stationName)) {
               alert(
                 `This employee does not have skill to work at ${stationName}`
               );
-            } else if (assignedStation.includes(station)) {
+            }
+            // check if station is already assigned
+            else if (assignedStation.includes(station)) {
               alert(`${station} has been already assigned to another employee`);
-            } else if (workStation) {
+            }
+            // if workStation return true. that means this employee already assigned to a work station
+            else if (workStation) {
               alert(`This employee is already at ${workStation}`);
+            // if employee is not assigned to a station
             } else {
               workStation = station;
+              // call function updateEmployee
               updateEmployee(employee.id, { station: workStation }).then(() => {
                 // update the list of employees at each station
                 displayEmployeeAtStation();
@@ -258,6 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // This function retrieves a list of employees from the server and returns an object with key-value pairs 
+  // where the key is the employee's name and the value is the station they are currently assigned to.
   function getEmployeesStationsObj() {
     let employeeAtStation = {};
     return fetch("http://localhost:3000/employees")
@@ -268,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
             employeeAtStation[employee.name] = employee.station;
           }
         });
+        // Return the object with the employees at stations
         return employeeAtStation;
       });
   }
@@ -277,16 +308,21 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteBtn.textContent = "x";
 
     deleteBtn.addEventListener("mouseover", () => {
+      // Sets the originalColor property of the button to its original color 
       deleteBtn.originalColor = deleteBtn.style.color;
+      // changes the button's text color to red.
       deleteBtn.style.color = "red";
     });
 
     deleteBtn.addEventListener("mouseout", () => {
+      // Resets the button's text color to its original color.
       deleteBtn.style.color = deleteBtn.originalColor;
     });
 
     deleteBtn.addEventListener("click", function () {
+      // Removes the corresponding list item from the HTML
       elementLi.remove();
+      // calls the updateEmployee function to update the employee record in the database.
       updateEmployee(employeeId, updateData);
     });
 

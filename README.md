@@ -18,7 +18,7 @@ You can add or remove an employee. If the name or login already exists, or you d
 
 And then you can give employee new skill, or you can add employee to a work station
 
-When an employee has been added to a work station, their name will show up here.
+When an employee has been added to a work station, their name will show up.
 Every time you add, remove or update, the data will be updated in the db.json file.
 
 If you want to remove employee from work station, just simply click the x button next to employee name.
