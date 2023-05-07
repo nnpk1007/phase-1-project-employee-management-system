@@ -2,18 +2,6 @@
   "employees": [
     {
       "id": 1,
-      "name": "Ngoc Nguyen",
-      "login": "nnamzn",
-      "skill": [
-        "titan",
-        "vareo",
-        "trimmer",
-        "inkjet"
-      ],
-      "station": ""
-    },
-    {
-      "id": 2,
       "name": "John Smith",
       "login": "jmamzm",
       "skill": [
@@ -32,16 +20,37 @@
         "vareo",
         "inkjet"
       ],
-      "id": 6
+      "id": 2,
+      "station": ""
     },
     {
-      "name": "Harry Porter",
-      "login": "hpamzn",
+      "name": "Trevis Parker",
+      "login": "tpamzn",
       "skill": [
         "titan",
-        "vareo"
+        "vareo",
+        ""
       ],
-      "id": 7
+      "id": 3,
+      "station": ""
+    },
+    {
+      "name": "Roland Fernando",
+      "login": "rfamzn",
+      "skill": [
+        "titan"
+      ],
+      "id": 4,
+      "station": ""
+    },
+    {
+      "name": "Ngoc Nguyen",
+      "login": "nnamzn",
+      "skill": [
+        "titan"
+      ],
+      "id": 6,
+      "station": ""
     }
   ]
 }

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addWork();
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-  removeEmployees()
+  removeEmployees();
   // show employee at station when the page first load
   displayEmployeeAtStation();
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nameCell.textContent = employee.name;
     loginCell.textContent = employee.login;
     skillCell.textContent = employee.skill;
-   
+
     employeeRow.append(nameCell, loginCell, skillCell);
     employees.appendChild(employeeRow);
   }
@@ -41,6 +41,22 @@ document.addEventListener("DOMContentLoaded", () => {
       let employeeName = document.getElementById("employee-name");
       let employeeLogin = document.getElementById("employee-login");
       let employeeSkill = document.getElementById("employee-skill");
+      let employeeTable = document.getElementById("employee-table");
+      let rows = employeeTable.getElementsByTagName("tr");
+
+      for (let i = 0; i < rows.length; i++) {
+        let nameCell = rows[i].querySelectorAll("td")[0];
+        let loginCell = rows[i].querySelectorAll("td")[1];
+
+        if (nameCell && nameCell.textContent === employeeName.value) {
+          alert("Employee name already exist");
+          return;
+        }
+        if (loginCell && loginCell.textContent === employeeLogin.value) {
+          alert("Employee login already exists");
+          return;
+        }
+      }
 
       let newEmployee = {
         name: employeeName.value,
@@ -48,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         skill: employeeSkill.value,
       };
       saveEmployee(newEmployee);
-
       addEmployeeForm.reset();
     });
   }
@@ -73,31 +88,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function removeEmployees() {
     const removeEmployeeBtn = document.getElementById("remove-employee-button");
-      
-    removeEmployeeBtn.addEventListener("click", (event) => {
-      let employeeLogin = document.getElementById("employee-login-remove").value;
-      event.preventDefault();
-      
-      fetch(`http://localhost:3000/employees?login=${employeeLogin}`)
-      .then(response => response.json())
-      .then(employees => {
-        if (employees.length === 0) {
-          alert("Invalid employee login")
-        }
-        let employeeId = employees[0].id;
-        console.log(employeeId);
 
-        fetch(`http://localhost:3000/employees/${employeeId}`, {
-          method: "DELETE",
+    removeEmployeeBtn.addEventListener("click", (event) => {
+      let employeeLogin = document.getElementById(
+        "employee-login-remove"
+      ).value;
+      event.preventDefault();
+
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`)
+        .then((response) => response.json())
+        .then((employees) => {
+          if (employees.length === 0) {
+            alert("Invalid employee login");
+          }
+          let employeeId = employees[0].id;
+          console.log(employeeId);
+
+          fetch(`http://localhost:3000/employees/${employeeId}`, {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((removedEmployee) => {
+              removeEmployeeRow(employeeLogin);
+              console.log(removedEmployee);
+            })
+            .catch((error) => console.log(error));
         })
-        .then(response => response.json())
-        .then(removedEmployee => {
-          removeEmployeeRow(employeeLogin)
-          console.log(removedEmployee)
-        }) 
-        .catch(error => console.log(error))
-      })
-      .catch(error => console.log(error))
+        .catch((error) => console.log(error));
     });
   }
 
@@ -114,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  
 
   function updateEmployeeRow(employee) {
     let employeeTable = document.getElementById("employee-table");
@@ -124,9 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let loginCell = rows[i].querySelectorAll("td")[1];
 
       if (loginCell && loginCell.textContent === employee.login) {
-          rows[i].querySelectorAll("td")[2].textContent = employee.skill;
-          break;
-
+        rows[i].querySelectorAll("td")[2].textContent = employee.skill;
+        break;
       }
     }
   }
@@ -175,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             updateEmployee(employee.id, { skill: skills });
           } else {
-            alert("Employee not found");
+            alert("Skill already exist");
           }
         })
         .catch((error) => console.log("Error fetching:", error));
@@ -199,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addWork() {
     const addWorkForm = document.getElementById("add-work-form");
-    
+
     addWorkForm.addEventListener("submit", (event) => {
       event.preventDefault();
       getStationArray().then((assignedStation) => {
@@ -218,7 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             let employee = employees[0];
-            //let login = employee.login;
             let skills = employee.skill;
             let workStation = employee.station;
 
@@ -281,8 +295,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayEmployeeAtStation() {
     getEmployeesStationsObj().then((employees) => {
-      // loop through each station in HTML
       let stations = document.querySelectorAll(".employees-at-position");
+
+      // loop through each station in HTML
       stations.forEach((station) => {
         let stationName = station.dataset.position;
         let employeeAtStation = Object.keys(employees).filter(
@@ -293,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Generate the list of employees for this position
         employeeAtStation.forEach((employee) => {
           let li = document.createElement("li");
-          li.style.color = "green";
+          li.style.color = "limegreen";
           li.textContent = employee + " ";
           station.appendChild(li);
 

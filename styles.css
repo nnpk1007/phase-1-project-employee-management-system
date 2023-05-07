@@ -1,122 +1,125 @@
-/* set global style */
-body {
-    font-family: Arial, Helvetica, sans-serif; 
+/* Reset default browser styles */
+* {
     margin: 0;
     padding: 0;
-}
-
-/* style header */
-header {
-    background-color: rgb(231, 234, 234);
-    color: rgb(15, 15, 176);
+    box-sizing: border-box;
+  }
+  
+  /* Set a consistent color scheme */
+  :root {
+    --primary-color: #0B3C5D;
+    --secondary-color: #3282B8;
+    --accent-color: #F6D55C;
+    --text-color: #333;
+    --background-color: #F5F5F5;
+  }
+  
+  /* Apply styles to the entire page */
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  /* Apply styles to the header */
+  header {
+    background-color: #fff;
     padding: 20px;
-}
-
-header h1 {
-    font-size: 40px;
-    font-weight: bold;
-    margin: 0;
-}
-
-/* style main section */
-main {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: auto;
-}
-
-section.employees {
-    width: 40%;
-}
-
-section.employees form {
-    margin-top: 20px;
-}
-
-section.employees h2 {
-    margin-top: 5px;
-}
-
-section.employees label {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  /* Apply styles to the logo image */
+    header img {
+        position: absolute;
+        top: auto;
+        right: 0px;
+        width: 90px; /* Adjust the width as needed */
+        height: 90px; /* Maintain the aspect ratio */
+    } 
+  /* Apply styles to section headings */
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+  }
+  
+  /* Apply styles to main content area */
+  main {
+    margin: 20px;
+  }
+  
+  section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  /* Apply styles to tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    text-align: left;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px;
+  }
+  
+  td {
+    padding: 10px;
+  }
+  
+  /* Apply styles to form elements */
+  label {
     display: block;
     margin-bottom: 5px;
-}
-
-section.employees button[type="submit"] {
-    margin-top: 10px;
-}
-
-section.work_station {
-    width: 45%;
-}
-
-section.work_station ul {
-    margin-top: 0;
-}
-
-section.work_station ul ul {
-    margin-top: 5px;
-    padding-left: 20px;
-}
-
-/*Style employee table*/
-#employee-table {
-	border-collapse: collapse;
-	width: 100%;
-}
-.employees th, td {
-	text-align: left;
-	padding: 8px;
-	border: 1px solid rgb(0, 26, 255);
-}
-.employees th {
-	background-color: #f2f2f2;
-}
-
-  /* Style employees at work station list */
-.employees-at-station {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+    font-weight: bold;
+    color: var(--secondary-color);
+  }
   
-.employees-at-station li {
-    margin-bottom: 5px;
-}
-
-.green {
-    color: green;
-}
-/* Style form inputs */
-input[type="text"],
-select {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  width: 100%;
-}
-
-select option {
-  color: #666;
-}
-
-/* Style form error messages */
-input:invalid,
-select:invalid {
-  border-color: rgb(0, 26, 255);
-}
-
-input:invalid + span,
-select:invalid + span {
-  color: red;
-  font-size: 0.8em;
-  margin-left: 5px;
-}
-
-/* Style success message */
-.success {
-  color: green;
-  margin-top: 10px;
-} 
-
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"],
+  button[type="click"] {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button[type="submit"]:hover,
+  button[type="click"]:hover {
+    background-color: var(--secondary-color);
+  }
+  

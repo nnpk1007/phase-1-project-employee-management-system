@@ -9,12 +9,11 @@
   </head>
   <body>
     <header>
-      <h1>Working Management System</h1>
-      <h2>FTW7</h2>
+      <h1>Employee Management System</h1>
     </header>
     <main>
       <section class="employees">
-        <h2>Employees</h2>
+        <h3>Employees</h3>
         <table id="employee-table">
           <thead>
             <tr>
@@ -42,7 +41,7 @@
           </div>
           <div>
             <label for="employee-skill">Skill:</label>
-            <select id="employee-skill">
+            <select id="employee-skill" required>
               <option value="">Select a skill...</option>
               <option value="titan">Titan</option>
               <option value="vareo">Vareo</option>
@@ -69,7 +68,7 @@
           </div>
           <div>
             <label for="employee-skill-update">Skill:</label>
-            <select id="employee-skill-update">
+            <select id="employee-skill-update" required>
               <option value="">Select a skill...</option>
               <option value="titan">Titan</option>
               <option value="vareo">Vareo</option>
@@ -115,9 +114,8 @@
         </form>
       </section>
       <section class="positions">
-        <h2>Stations</h2>
-        <ul>
-          
+        <h3>Stations</h3>
+        <ul class="work-station">
           <li>
             Titan 1 
             <ul class="employees-at-position" data-position="titan-1">
