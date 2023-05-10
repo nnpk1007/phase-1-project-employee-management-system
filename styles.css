@@ -49,13 +49,13 @@
         height: 90px; /* Maintain the aspect ratio */
     } 
   /* Apply styles to section headings */
-  h2 {
+  /* h2 {
     margin: 0;
     font-size: 24px;
     font-weight: bold;
     color: var(--secondary-color);
     margin-bottom: 20px;
-  }
+  } */
   
   /* Apply styles to main content area */
   main {
