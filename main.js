@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   displayEmployeeAtStation(); // show employee name at work station
 
   function fetchEmployees() {
-    fetch("https://nnpk1007.github.io/phase-1-project-employee-management-system/db.json/employees")
+    fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
     //fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
