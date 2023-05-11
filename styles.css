@@ -1,125 +1,109 @@
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Set a consistent color scheme */
-  :root {
-    --primary-color: #0B3C5D;
-    --secondary-color: #3282B8;
-    --accent-color: #F6D55C;
-    --text-color: #333;
-    --background-color: #F5F5F5;
-  }
-  
-  /* Apply styles to the entire page */
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--text-color);
-    background-color: var(--background-color);
-  }
-  
-  /* Apply styles to the header */
-  header {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 36px;
-    font-weight: bold;
-    color: var(--primary-color);
-  }
-  
-  /* Apply styles to the logo image */
-    header img {
-        position: absolute;
-        top: auto;
-        right: 0px;
-        width: 90px; /* Adjust the width as needed */
-        height: 90px; /* Maintain the aspect ratio */
-    } 
-  /* Apply styles to section headings */
-  /* h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-  } */
-  
-  /* Apply styles to main content area */
-  main {
-    margin: 20px;
-  }
-  
-  section {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-  }
-  
-  /* Apply styles to tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th {
-    text-align: left;
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: 10px;
-  }
-  
-  td {
-    padding: 10px;
-  }
-  
-  /* Apply styles to form elements */
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: var(--secondary-color);
-  }
-  
-  input[type="text"],
-  select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  button[type="submit"],
-  button[type="click"] {
-    background-color: var(--accent-color);
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  button[type="submit"]:hover,
-  button[type="click"]:hover {
-    background-color: var(--secondary-color);
-  }
-  
+/* Set a consistent color scheme */
+:root {
+  --primary-color: #0b3c5d;
+  --secondary-color: #3282b8;
+  --accent-color: #f6d55c;
+  --text-color: #333;
+  --background-color: #f5f5f5;
+}
+
+/* Apply styles to the entire page */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Apply styles to the header */
+header {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Apply styles to the logo image */
+header img {
+  position: absolute;
+  top: auto;
+  right: 0px;
+  width: 90px; /* Adjust the width as needed */
+  height: 90px; /* Maintain the aspect ratio */
+}
+
+/* Apply styles to main content area */
+main {
+  margin: 20px;
+}
+
+section {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+/* Apply styles to tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+}
+
+/* Apply styles to form elements */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+button[type="submit"],
+button[type="click"] {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover,
+button[type="click"]:hover {
+  background-color: var(--secondary-color);
+}

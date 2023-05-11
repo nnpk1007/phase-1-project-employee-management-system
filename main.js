@@ -1,16 +1,29 @@
+const jsonServer = require("json-server"); // importing json-server library
+const server = jsonServer.create();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
+const port = process.env.PORT || 3001; // you can use any port number here; i chose to use 3001
+
+server.use(middlewares);
+server.use(router);
+
+server.listen(port);
+
+
 document.addEventListener("DOMContentLoaded", () => {
-  const employees = document.getElementById("employee-table");
+  const employeesTable = document.getElementById("employee-table");
+  const rows = employeesTable.getElementsByTagName("tr");
 
   fetchEmployees(); // show employee info when page is load
   addEmployee(); // add new employee and save to db.json
-  removeEmployees(); // remove employee adn update to db.json
+  removeEmployees(); // remove employee and update to db.json
   updateEmployeeSkill(); // update new skill for employee and save to db.json
   addWork(); // add employee to a work station and update to db.json
   displayEmployeeAtStation(); // show employee name at work station
 
   function fetchEmployees() {
-    fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    //fetch("http://localhost:3000/employees")
+    //fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
+    fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
         employees.forEach((employee) => {
@@ -31,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     skillCell.textContent = employee.skill;
 
     employeeRow.append(nameCell, loginCell, skillCell);
-    employees.appendChild(employeeRow);
+    employeesTable.appendChild(employeeRow);
   }
 
   function addEmployee() {
@@ -42,8 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
       let employeeName = document.getElementById("employee-name");
       let employeeLogin = document.getElementById("employee-login");
       let employeeSkill = document.getElementById("employee-skill");
-      let employeeTable = document.getElementById("employee-table");
-      let rows = employeeTable.getElementsByTagName("tr");
 
       // loop through row of table
       for (let i = 0; i < rows.length; i++) {
@@ -80,8 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
       newEmployee.skill = [newEmployee.skill];
     }
     // use POST method to update new employee to db.json
-    fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees", {
-    //fetch("http://localhost:3000/employees", {
+    //fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees", {
+    fetch("http://localhost:3000/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,9 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let employeeLogin = document.getElementById(
         "employee-login-remove"
       ).value;
-      
-      fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
+
+      //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           // if employee login value is invalid, we can not fetch, the return by json will be empty
@@ -118,8 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(employeeId);
 
           // use employee ID to fetch data and DELETE method to delete that employee
-          fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
-          //fetch(`http://localhost:3000/employees/${employeeId}`, {
+          //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
+          fetch(`http://localhost:3000/employees/${employeeId}`, {
             method: "DELETE",
           })
             .then((response) => response.json())
@@ -134,10 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function removeEmployeeRow(employeeLogin) {
-    let employeeTable = document.getElementById("employee-table");
-    let rows = employeeTable.getElementsByTagName("tr");
-
+    // Loop through each row of the table
     for (let i = 0; i < rows.length; i++) {
+      // Get the cell containing the login of the employee in row at td[1]
       let loginCell = rows[i].querySelectorAll("td")[1];
 
       if (loginCell && loginCell.textContent === employeeLogin) {
@@ -159,9 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let employeeSkillUpdate = document.getElementById(
         "employee-skill-update"
       ).value;
-      
-      fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+
+      //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
+      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           if (employees.length === 0) {
@@ -188,8 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateEmployee(employeeId, updateData) {
     // Make a PATCH request using employee Id
-    return fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
-    //return fetch(`http://localhost:3000/employees/${employeeId}`, {
+    //return fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
+    return fetch(`http://localhost:3000/employees/${employeeId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -206,10 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateEmployeeRow(employee) {
-    let employeeTable = document.getElementById("employee-table");
-    let rows = employeeTable.getElementsByTagName("tr");
-
-    // Loop through each row of the tabl
+    // Loop through each row of the table
     for (let i = 0; i < rows.length; i++) {
       // Get the cell containing the login of the employee in row at td[1]
       let loginCell = rows[i].querySelectorAll("td")[1];
@@ -224,8 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // This function retrieves all the employees from the database and returns an array of stations where employees are currently assigned to work.
   function getStationArray() {
-    return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    //return fetch("http://localhost:3000/employees")
+    //return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
+    return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) => {
         let stations = [];
@@ -253,9 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let station = document.getElementById("station").value;
         // station value, for example is titan-1, so we need to split it and get the first index only
         let stationName = station.split("-")[0];
-        
-        fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-        //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+
+        //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
+        fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
           .then((response) => response.json())
           .then((employees) => {
             if (employees.length === 0) {
@@ -278,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // if workStation return true. that means this employee already assigned to a work station
             else if (workStation) {
               alert(`This employee is already at ${workStation}`);
-            // if employee is not assigned to a station
+              // if employee is not assigned to a station
             } else {
               workStation = station;
               // call function updateEmployee
@@ -294,12 +301,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // This function retrieves a list of employees from the server and returns an object with key-value pairs 
+  // This function retrieves a list of employees from the server and returns an object with key-value pairs
   // where the key is the employee's name and the value is the station they are currently assigned to.
   function getEmployeesStationsObj() {
     let employeeAtStation = {};
-    return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    //return fetch("http://localhost:3000/employees")
+    //return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
+    return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) => {
         employees.forEach((employee) => {
@@ -317,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteBtn.textContent = "x";
 
     deleteBtn.addEventListener("mouseover", () => {
-      // Sets the originalColor property of the button to its original color 
+      // Sets the originalColor property of the button to its original color
       deleteBtn.originalColor = deleteBtn.style.color;
       // changes the button's text color to red.
       deleteBtn.style.color = "red";
@@ -357,8 +364,8 @@ document.addEventListener("DOMContentLoaded", () => {
           li.textContent = employee + " ";
           station.appendChild(li);
 
-          fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?name=${employee}`)
-          //fetch(`http://localhost:3000/employees?name=${employee}`)
+          //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?name=${employee}`)
+          fetch(`http://localhost:3000/employees?name=${employee}`)
             .then((response) => response.json())
             .then((employees) => {
               // Check if there is at least one employee in the array
@@ -372,3 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+// "test": "echo \"Error: no test specified\" && exit 1"
