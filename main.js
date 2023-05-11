@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   displayEmployeeAtStation(); // show employee name at work station
 
   function fetchEmployees() {
-    //fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    fetch("http://localhost:3000/employees")
+    fetch("https://project-employee-management-system.onrender.com/employees")
+    //fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
         employees.forEach((employee) => {
@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       newEmployee.skill = [newEmployee.skill];
     }
     // use POST method to update new employee to db.json
-    //fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees", {
-    fetch("http://localhost:3000/employees", {
+    fetch("https://project-employee-management-system.onrender.com/employees", {
+    //fetch("http://localhost:3000/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,8 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "employee-login-remove"
       ).value;
 
-      //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
+      fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
+      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           // if employee login value is invalid, we can not fetch, the return by json will be empty
@@ -117,8 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(employeeId);
 
           // use employee ID to fetch data and DELETE method to delete that employee
-          //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
-          fetch(`http://localhost:3000/employees/${employeeId}`, {
+          fetch(`https://project-employee-management-system.onrender.com/employees/${employeeId}`, {
+          //fetch(`http://localhost:3000/employees/${employeeId}`, {
             method: "DELETE",
           })
             .then((response) => response.json())
@@ -158,8 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "employee-skill-update"
       ).value;
 
-      //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-      fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+      fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
+      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           if (employees.length === 0) {
@@ -186,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateEmployee(employeeId, updateData) {
     // Make a PATCH request using employee Id
-    //return fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees/${employeeId}`, {
-    return fetch(`http://localhost:3000/employees/${employeeId}`, {
+    return fetch(`https://project-employee-management-system.onrender.com/employees/${employeeId}`, {
+    //return fetch(`http://localhost:3000/employees/${employeeId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -219,8 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // This function retrieves all the employees from the database and returns an array of stations where employees are currently assigned to work.
   function getStationArray() {
-    //return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    return fetch("http://localhost:3000/employees")
+    return  fetch("https://project-employee-management-system.onrender.com/employees")
+    //return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) => {
         let stations = [];
@@ -249,8 +249,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // station value, for example is titan-1, so we need to split it and get the first index only
         let stationName = station.split("-")[0];
 
-        //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?login=${employeeLogin}`)
-        fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+        fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
+        //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
           .then((response) => response.json())
           .then((employees) => {
             if (employees.length === 0) {
@@ -293,8 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // where the key is the employee's name and the value is the station they are currently assigned to.
   function getEmployeesStationsObj() {
     let employeeAtStation = {};
-    //return  fetch("https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees")
-    return fetch("http://localhost:3000/employees")
+    return  fetch("https://project-employee-management-system.onrender.com/employees")
+    //return fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) => {
         employees.forEach((employee) => {
@@ -352,8 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
           li.textContent = employee + " ";
           station.appendChild(li);
 
-          //fetch(`https://my-json-server.typicode.com/nnpk1007/phase-1-project-employee-management-system/employees?name=${employee}`)
-          fetch(`http://localhost:3000/employees?name=${employee}`)
+          fetch(`https://project-employee-management-system.onrender.com/employees?name=${employee}`)
+          //fetch(`http://localhost:3000/employees?name=${employee}`)
             .then((response) => response.json())
             .then((employees) => {
               // Check if there is at least one employee in the array
