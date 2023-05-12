@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fetchEmployees() {
     fetch("https://project-employee-management-system.onrender.com/employees")
-    //fetch("http://localhost:3000/employees")
+      //fetch("http://localhost:3000/employees")
       .then((response) => response.json())
       .then((employees) =>
         employees.forEach((employee) => {
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // use POST method to update new employee to db.json
     fetch("https://project-employee-management-system.onrender.com/employees", {
-    //fetch("http://localhost:3000/employees", {
+      //fetch("http://localhost:3000/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,8 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "employee-login-remove"
       ).value;
 
-      fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
-      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
+      fetch(
+        `https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`
+      )
+        //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) // //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           // if employee login value is invalid, we can not fetch, the return by json will be empty
@@ -117,10 +119,13 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(employeeId);
 
           // use employee ID to fetch data and DELETE method to delete that employee
-          fetch(`https://project-employee-management-system.onrender.com/employees/${employeeId}`, {
-          //fetch(`http://localhost:3000/employees/${employeeId}`, {
-            method: "DELETE",
-          })
+          fetch(
+            `https://project-employee-management-system.onrender.com/employees/${employeeId}`,
+            {
+              //fetch(`http://localhost:3000/employees/${employeeId}`, {
+              method: "DELETE",
+            }
+          )
             .then((response) => response.json())
             .then((removedEmployee) => {
               removeEmployeeRow(employeeLogin); // call removeEmployeeRow to remove employee from table
@@ -158,8 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "employee-skill-update"
       ).value;
 
-      fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
-      //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+      fetch(
+        `https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`
+      )
+        //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
         .then((response) => response.json())
         .then((employees) => {
           if (employees.length === 0) {
@@ -186,15 +193,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateEmployee(employeeId, updateData) {
     // Make a PATCH request using employee Id
-    return fetch(`https://project-employee-management-system.onrender.com/employees/${employeeId}`, {
-    //return fetch(`http://localhost:3000/employees/${employeeId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(updateData),
-    })
+    return fetch(
+      `https://project-employee-management-system.onrender.com/employees/${employeeId}`,
+      {
+        //return fetch(`http://localhost:3000/employees/${employeeId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(updateData),
+      }
+    )
       .then((response) => response.json())
       .then((updatedEmployee) => {
         // Pass the updated employee object to the updateEmployeeRow function
@@ -219,18 +229,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // This function retrieves all the employees from the database and returns an array of stations where employees are currently assigned to work.
   function getStationArray() {
-    return  fetch("https://project-employee-management-system.onrender.com/employees")
-    //return fetch("http://localhost:3000/employees")
-      .then((response) => response.json())
-      .then((employees) => {
-        let stations = [];
-        employees.forEach((employee) => {
-          if (employee.station) {
-            stations.push(employee.station);
-          }
-        });
-        return stations;
-      });
+    return (
+      fetch("https://project-employee-management-system.onrender.com/employees")
+        //return fetch("http://localhost:3000/employees")
+        .then((response) => response.json())
+        .then((employees) => {
+          let stations = [];
+          employees.forEach((employee) => {
+            if (employee.station) {
+              stations.push(employee.station);
+            }
+          });
+          return stations;
+        })
+    );
   }
 
   // This function handle adding a new work to an employee.
@@ -249,8 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // station value, for example is titan-1, so we need to split it and get the first index only
         let stationName = station.split("-")[0];
 
-        fetch(`https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`)
-        //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
+        fetch(
+          `https://project-employee-management-system.onrender.com/employees?login=${employeeLogin}`
+        )
+          //fetch(`http://localhost:3000/employees?login=${employeeLogin}`) //retrieve the employee with the specified login
           .then((response) => response.json())
           .then((employees) => {
             if (employees.length === 0) {
@@ -293,18 +307,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // where the key is the employee's name and the value is the station they are currently assigned to.
   function getEmployeesStationsObj() {
     let employeeAtStation = {};
-    return  fetch("https://project-employee-management-system.onrender.com/employees")
-    //return fetch("http://localhost:3000/employees")
-      .then((response) => response.json())
-      .then((employees) => {
-        employees.forEach((employee) => {
-          if (employee.station) {
-            employeeAtStation[employee.name] = employee.station;
-          }
-        });
-        // Return the object with the employees at stations
-        return employeeAtStation;
-      });
+    return (
+      fetch("https://project-employee-management-system.onrender.com/employees")
+        //return fetch("http://localhost:3000/employees")
+        .then((response) => response.json())
+        .then((employees) => {
+          employees.forEach((employee) => {
+            if (employee.station) {
+              employeeAtStation[employee.name] = employee.station;
+            }
+          });
+          // Return the object with the employees at stations
+          return employeeAtStation;
+        })
+    );
   }
 
   function createDeleteButton(elementLi, employeeId, updateData) {
@@ -328,17 +344,24 @@ document.addEventListener("DOMContentLoaded", () => {
       elementLi.remove();
       // calls the updateEmployee function to update the employee record in the database.
       updateEmployee(employeeId, updateData);
+
+      positionStatus = document.querySelectorAll(".position-status");
+      positionStatus.forEach(status => {
+        status.textContent = "offline";
+        status.style.color = "red";
+      })
     });
 
     elementLi.appendChild(deleteBtn);
   }
 
   function displayEmployeeAtStation() {
+    let positionStatusList = document.querySelectorAll(".position-status");
     getEmployeesStationsObj().then((employees) => {
       let stations = document.querySelectorAll(".employees-at-position");
 
       // loop through each station in HTML
-      stations.forEach((station) => {
+      stations.forEach((station, index) => {
         let stationName = station.dataset.position;
         let employeeAtStation = Object.keys(employees).filter(
           (key) => employees[key] === stationName
@@ -352,14 +375,21 @@ document.addEventListener("DOMContentLoaded", () => {
           li.textContent = employee + " ";
           station.appendChild(li);
 
-          fetch(`https://project-employee-management-system.onrender.com/employees?name=${employee}`)
-          //fetch(`http://localhost:3000/employees?name=${employee}`)
+          fetch(
+            `https://project-employee-management-system.onrender.com/employees?name=${employee}`
+          )
+            //fetch(`http://localhost:3000/employees?name=${employee}`)
             .then((response) => response.json())
             .then((employees) => {
+              let positionStatus = positionStatusList[index];
               // Check if there is at least one employee in the array
               if (employees.length > 0) {
                 let employeeId = employees[0].id; // get the employee id from the response
                 createDeleteButton(li, employeeId, { station: "" });
+
+                // Update the corresponding position status
+                positionStatus.textContent = "online";
+                positionStatus.style.color = "limegreen";
               }
             });
         });
@@ -367,6 +397,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-
-// "test": "echo \"Error: no test specified\" && exit 1"

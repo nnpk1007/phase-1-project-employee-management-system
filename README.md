@@ -1,16 +1,15 @@
-# PHASE 1 PROJECT
+# PHASE 1 PROJECT : <br> EMPLOYEE MANAGEMENT SYSTEM
 
 I’m working at an Amazon warehouse, and we print books at this warehouse. Every day, when our shift start, the manager will put our name tags on the labor board and we will know which station we will work at. I sometimes see my manager take a photo of the labor board by their phone, and when they need to move employees to another station, if they’re not at the labor board, they use their phone and zoom out the photo to check which station they can move employee to. What an inconvenient. As a software developer, I think why don’t I make a web app so we can manage employee more easily.
 
-## PROJECT:
-
-EMPLOYEE MANAGEMENT SYSTEM
-
 ## INSTALLATION:
 
-index.html, styles.css, main.js, db.json
+Clone this repository and change directory into this project folder. Then run:
 
-render.com to host my db.json
+Mac: `open index.html`<br>
+Windows: `explorer.exe index.html`
+
+Note : this project is using render.com to host db.json.
 
 ## USAGE:
 
