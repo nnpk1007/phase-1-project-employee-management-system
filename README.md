@@ -9,30 +9,57 @@ Clone this repository and change directory into this project folder. Then run:
 Mac: `open index.html`<br>
 Windows: `explorer.exe index.html`
 
-Note : this project is using render.com to host db.json.
+This project is using render.com to host db.json. Please note that there might be occasional delays in data loading.
 
-## USAGE:
+## FEATURES:
 
-You can see all the employee’s name, login and skills show up when the page loaded
+### 1. Displaying Employee Information:
+    . When the page is loaded, the system fetches employee data from the server and displays it in a table.
+    . Each employee's name, login, and skill are shown in separate columns.
 
-![employees info](/readme_photo/employees.png)
+![employees info](/readme_photo/first_load.gif)
 
-You can add or remove an employee. If the name or login already exists, or you don’t choose a skill from select, the system will send you an alert.
+### 2. Adding Employees:
+    . The system allows users to add new employees using a form.
+    . It checks if the employee's name and login already exist in the table to avoid duplicates.
+    . If the input is valid, the system saves the new employee to the database and updates the table accordingly.
 
-![add-remove employee](/readme_photo/add-remove.png)
+![](/readme_photo/add_employee.gif)
 
-And then you can give employee new skill, or you can add employee to a work station
+### 3. Removing Employees:
+    . Users can remove employees from the system by entering the employee's login.
+    . The system retrieves the employee with the specified login from the server and deletes it from the database.
+    . The corresponding row in the table is also removed.
 
-![update new skill or add to work station](/readme_photo/update.png)
+![](/readme_photo/remove_employee.gif)
 
-When an employee has been added to a work station, their name will show up.
+### 4. Updating Employee Skills:
+    . The system enables users to update an employee's skills.
+    . Users provide the employee's login and the new skill through a form.
+    . The system fetches the employee from the server, checks if the new skill already exists, and updates the employee's skill accordingly.
+    . The updated skill is then displayed in the table.
 
-![work station](/readme_photo/station.png)
+![](/readme_photo/upgrade_skill.gif)
 
-If you want to remove employee from work station, just simply click the x button next to employee name.
+### 5. Assigning Employees to Work Stations:
+    . Users can assign employees to work stations.
+    . The system fetches a list of assigned work stations from the server.
+    . Users provide the employee's login and select a work station from the available options.
+    . The system verifies if the selected work station is already assigned to another employee, if the employee is already assigned to a work station.
 
-Every time you add, remove or update, the data will be updated in the db.json file.
+![](/readme_photo/add_to_station1.gif)
 
+    . And check if the employee has the required skill.
+    . If the conditions are met, the employee is assigned to the work station and the information is saved in the database.
+    . The list of employees at each work station is updated and displayed.
+
+![](/readme_photo/add_to_station_2.gif)
+
+
+### 6. Remove employee from work station:
+    . Users can remove employees from work stations by simply clicking the "x" button next to employee's name.
+
+![](/readme_photo/remove_from_station.gif)
 
 ## LICENSE:
 
