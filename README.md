@@ -56,7 +56,7 @@ This project is using render.com to host db.json. Please note that there might b
 ![](/readme_photo/add_to_station_2.gif)
 
 
-### 6. Remove employee from work station:
+### 6. Removing employees from work station:
     . Users can remove employees from work stations by simply clicking the "x" button next to employee's name.
 
 ![](/readme_photo/remove_from_station.gif)
